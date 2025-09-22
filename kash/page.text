@@ -1,0 +1,22 @@
+            <div class="accordion-item ">
+              <div class="accordion-header">
+                <div class="circle-sss"></div>
+                <span>DAY 5: Departure from Pahalgam → Srinagar</span>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <div class="accordion-body">
+                <p class="pa">Check out and return to Srinagar airport for onward journey. Tour ends with memories of
+                  Kashmir.</p>
+              </div>
+            </div>
+            <div class="accordion-item last">
+              <div class="accordion-header">
+                <div class="circle-sss"></div>
+                <span>DAY 6: Departure from Pahalgam → Srinagar</span>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <div class="accordion-body">
+                <p class="pa">Check out and return to Srinagar airport for onward journey. Tour ends with memories of
+                  Kashmir.</p>
+              </div>
+            </div>

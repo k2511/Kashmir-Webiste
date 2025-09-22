@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visit Kashmir</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+  <!-- Navbar -->
+  <section class="navbar">
+    <nav>
+      <div class="logo-container">
+        <div class="logo">
+          <a href="index.html">
+            <img src="images/logo-1.svg" alt="Visit Kashmir Logo" />
+          </a>
+        </div>
+      </div>
+      <button class="cta" onclick="openPanel(0)">✨ Plan a trip</button>
+    </nav>
+  </section>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1 class="animate-up">KASHMIR THE BEAUTIFUL</h1>
+    <p class="animate-up">✨ Get travel ideas</p>
+
+    <!-- Normal buttons (desktop) -->
+    <div class="hero-buttons desktop-buttons">
+      <button onclick="openPanel(0)">✨ Show me incredible views</button>
+      <button onclick="openPanel(1)">✨ Find the Best Kashmiri Wazwan</button>
+      <button onclick="openPanel(2)">✨ Build my family road trip</button>
+      <button onclick="openPanel(3)">✨ See top arts destinations</button>
+    </div>
+
+    
+    <!-- Slider buttons (mobile only) -->
+    <div class="hero-slider mobile-slider">
+      <div class="slide"><button onclick="openPanel(0)">✨ Show me incredible views</button></div>
+      <div class="slide"><button onclick="openPanel(1)">✨ Find the Best Kashmiri Wazwan</button></div>
+      <div class="slide"><button onclick="openPanel(2)">✨ Build my family road trip</button></div>
+      <div class="slide"><button onclick="openPanel(3)">✨ See top arts destinations</button></div>
+    </div>
+  </section>
+
+
+  <!-- Info Section -->
+  <section class="info-section">
+    <p id="animatedText" class="info-text"></p>
+  </section>
+
+  <!-- Right-to-left Slide Panel -->
+  <div class="overlay" id="overlay"></div>
+  <div class="side-panel" id="panel">
+    <button class="close-btn" id="closePanel">X</button>
+    <div id="panelContent"></div>
+  </div>
+
+  <!-- Bestseller Kashmir Tours Section -->
+  <section class="tours">
+    <h1>Bestseller Kashmir Tours at Stellar Discounts</h1>
+    <div class="carousel">
+      <div class="carousel-track">
+        <!-- Card 1 -->
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="https://www.ekashmirtourism.com/wp-content/uploads/2023/09/baloon-ride-kashmir.jpg"
+              alt="Balloon Ride in Kashmir" loading="lazy">
+            <div class="days-label">3N/4D</div>
+          </div>
+          <div class="card-content">
+            <h3>Glimpses Of Kashmir Valley</h3>
+            <div class="icons">
+              <span>✈ 0 Flights</span>
+              <span>🏨 3 Hotels</span>
+              <span>🎯 6 Activities</span>
+              <span>🚖 4 Transfers</span>
+            </div>
+            <div class="locations"><span>3N Srinagar</span></div>
+            <ul>
+              <li>01 Hr Shikara Ride</li>
+              <li>Tour to Chandanwari, Aru & Betab Valley</li>
+            </ul>
+            <div class="prices">
+              <span class="price">₹9,459</span>
+              <span class="old-price">₹11,351</span>
+              <span class="offer">20% OFF</span>
+            </div>
+            <p class="update">Updated on: 16 September 2025</p>
+            <a href="page1.html" class="btn">Customised & Send Enquiry</a>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="https://www.ekashmirtourism.com/wp-content/uploads/2023/09/kashmir-tourism.jpg"
+              alt="Kashmir Tourism" loading="lazy">
+            <div class="days-label">4N/5D</div>
+          </div>
+          <div class="card-content">
+            <h3>Magical Kashmir Tour</h3>
+            <div class="icons">
+              <span>✈ 0 Flights</span>
+              <span>🏨 4 Hotels</span>
+              <span>🎯 8 Activities</span>
+              <span>🚖 5 Transfers</span>
+            </div>
+            <div class="locations">
+              <span>2N Srinagar</span><span>1N Gulmarg</span><span>1N Pahalgam</span>
+            </div>
+            <ul>
+              <li>01 Hr Shikara Ride</li>
+              <li>Tour to Aru & Betab Valley</li>
+            </ul>
+            <div class="prices">
+              <span class="price">₹14,999</span>
+              <span class="old-price">₹17,999</span>
+              <span class="offer">20% OFF</span>
+            </div>
+            <p class="update">Updated on: 16 September 2025</p>
+            <a href="page2.html" class="btn">Customised & Send Enquiry</a>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="images/hel1.jpg" alt="Dal Lake Kashmir" loading="lazy">
+            <div class="days-label">5N/6D</div>
+          </div>
+          <div class="card-content">
+            <h3>Kashmir Exotic Tour</h3>
+            <div class="icons">
+              <span>✈ 0 Flights</span>
+              <span>🏨 5 Hotels</span>
+              <span>🎯 9 Activities</span>
+              <span>🚖 6 Transfers</span>
+            </div>
+            <div class="locations">
+              <span>2N Srinagar</span><span>1N Gulmarg</span><span>1N Pahalgam</span>
+            </div>
+            <ul>
+              <li>01 Hr Shikara Ride</li>
+              <li>Tour to Aru & Betab Valley</li>
+            </ul>
+            <div class="prices">
+              <span class="price">₹16,999</span>
+              <span class="old-price">₹20,399</span>
+              <span class="offer">20% OFF</span>
+            </div>
+            <p class="update">Updated on: 16 September 2025</p>
+            <a href="page3.html" class="btn">Customised & Send Enquiry</a>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="https://www.ekashmirtourism.com/wp-content/uploads/2023/09/gandola-ride-kashmir.jpg"
+              alt="Kashmir Packages" loading="lazy">
+            <div class="days-label">6N/7D</div>
+          </div>
+          <div class="card-content">
+            <h3>Magnificent Kashmir Valley Tour</h3>
+            <div class="icons">
+              <span>✈ 0 Flights</span>
+              <span>🏨 6 Hotels</span>
+              <span>🎯 11 Activities</span>
+              <span>🚖 7 Transfers</span>
+            </div>
+            <div class="locations">
+              <span>2N Srinagar</span><span>1N Gulmarg</span><span>1N Pahalgam</span>
+            </div>
+            <ul>
+              <li>01 Hr Shikara Ride</li>
+              <li>Tour to Chandanwari, Aru & Betab Valley</li>
+            </ul>
+            <div class="prices">
+              <span class="price">₹19,999</span>
+              <span class="old-price">₹23,999</span>
+              <span class="offer">20% OFF</span>
+            </div>
+            <p class="update">Updated on: 16 September 2025</p>
+            <a href="page4.html" class="btn">Customised & Send Enquiry</a>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="card">
+          <div class="card-img-wrapper">
+            <img src="https://www.ekashmirtourism.com/wp-content/uploads/2023/09/kashmir-paakges.jpg"
+              alt="Kashmir Packages" loading="lazy">
+            <div class="days-label">7N/8D</div>
+          </div>
+          <div class="card-content">
+            <h3>Kashmir Marvellous Tour</h3>
+            <div class="icons">
+              <span>✈ 0 Flights</span>
+              <span>🏨 7 Hotels</span>
+              <span>🎯 12 Activities</span>
+              <span>🚖 8 Transfers</span>
+            </div>
+            <div class="locations">
+              <span>2N Srinagar</span><span>1N Gulmarg</span><span>1N Pahalgam</span>
+            </div>
+            <ul>
+              <li>01 Hr Shikara Ride</li>
+              <li>Tour to Chandanwari, Aru & Betab Valley</li>
+            </ul>
+            <div class="prices">
+              <span class="price">₹24,999</span>
+              <span class="old-price">₹29,999</span>
+              <span class="offer">20% OFF</span>
+            </div>
+            <p class="update">Updated on: 16 September 2025</p>
+            <a href="page5.html" class="btn">Customised & Send Enquiry</a>
+          </div>
+        </div>
+      </div>
+      <button class="prev">&#10094;</button>
+      <button class="next">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- Kashmir Map Section -->
+  <section class="map-section">
+    <h1>YOUR DREAM TRIP STARTS NOW</h1>
+    <p>Explore Kashmir’s beautiful destinations by clicking on the menu.</p>
+    <div id="map">
+      <div class="menu" id="menuBox">
+        <h3>Kashmir Places</h3>
+        <label><input type="radio" name="place" value="srinagar_dal"> Srinagar (Dal Lake)</label>
+        <label><input type="radio" name="place" value="srinagar_gardens"> Srinagar (Mughal Gardens)</label>
+        <label><input type="radio" name="place" value="gulmarg"> Gulmarg</label>
+        <label><input type="radio" name="place" value="pahalgam"> Pahalgam</label>
+        <label><input type="radio" name="place" value="sonmarg"> Sonamarg</label>
+        <label><input type="radio" name="place" value="yusmarg"> Yusmarg</label>
+        <label><input type="radio" name="place" value="doodhpathri"> Doodhpathri</label>
+        <label><input type="radio" name="place" value="kupwara"> Kupwara (Bangus Valley)</label>
+        <label><input type="radio" name="place" value="patnitop"> Patnitop</label>
+        <label><input type="radio" name="place" value="gurez"> Gurez Valley</label>
+      </div>
+
+      <!-- Toggle Button -->
+      <button id="toggleMenu">☰ Menu</button>
+    </div>
+  </section>
+
+  <!-- Travel Carousel Section -->
+  <section class="travel-carousel">
+    <div class="tc-header">
+      <div class="tc-title">Your next bold move? Explore<br> Kashmir your way</div>
+      <div class="tc-arrows">
+        <button class="tc-arrow left" aria-label="Scroll left"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="tc-arrow right" aria-label="Scroll right"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+    </div>
+    <div class="tc-viewport">
+      <div class="tc-track">
+        <!-- Card 1 -->
+        <div class="tc-card">
+          <div class="item-image"><img src="images/img2.jpg" alt="Breathtaking Lakes of Kashmir"></div>
+          <div class="item-content">
+            <span class="tag">Kashmir250</span>
+            <h2>Exploring the Breathtaking Lakes of Kashmir</h2>
+            <p>Update your travel bucket list with these can’t-miss places.</p>
+            <a href="#">Read Article</a>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="tc-card">
+          <div class="item-image"><img src="images/img1.jpg" alt="Snow Adventures in Kashmir"></div>
+          <div class="item-content">
+            <span class="tag">Kashmir250</span>
+            <h2>Snow Adventures in Kashmir</h2>
+            <p>Your perfect finds await in Kashmir’s snowy landscapes.</p>
+            <a href="#">Read Article</a>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="tc-card">
+          <div class="item-image"><img src="images/img3.jpg" alt="Jamia Masjid, Srinagar"></div>
+          <div class="item-content">
+            <span class="tag">Road Trips</span>
+            <h2>Jamia Masjid, Srinagar</h2>
+            <p>Embark on a road trip through breathtaking valleys.</p>
+            <a href="#">Read Article</a>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="tc-card">
+          <div class="item-image"><img src="images/img4.jpg" alt="The Complete History of Kashmir"></div>
+          <div class="item-content">
+            <span class="tag">Road Trips</span>
+            <h2>The Complete History of Kashmir</h2>
+            <p>Discover the rich heritage of Kashmir.</p>
+            <a href="#">Read Article</a>
+          </div>
+        </div>
+        <!-- Card 5 -->
+        <div class="tc-card">
+          <div class="item-image"><img src="images/img5.jpg" alt="Ancient Wonders of Kashmir"></div>
+          <div class="item-content">
+            <span class="tag">Kashmir250</span>
+            <h2>Exploring the Ancient Wonders of Kashmir</h2>
+            <p>Experience some of the region’s best cultural sites.</p>
+            <a href="#">Read Article</a>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="tc-card">
+          <div class="item-image"><img src="images/img6.jpg" alt="Ancient Tribal Cuisine"></div>
+          <div class="item-content">
+            <span class="tag">Road Trips</span>
+            <h2>Ancient Tribal Cuisine</h2>
+            <p>Enjoy the journey through traditional flavors and forgotten recipes.</p>
+            <a href="#">Read Article</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tc-nav">
+      <span id="image-count">1 / 6</span>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="visa-entry-section">
+    <div class="left-panel">
+      <h1>FAQ Categories</h1>
+      <ul id="faq-categories">
+        <li class="active" onclick="showFaqCategory('general')">General FAQs</li>
+        <li onclick="showFaqCategory('kashmir')">Kashmir & Ladakh Tour FAQs</li>
+        <li onclick="showFaqCategory('shimla')">Shimla & Manali Tour FAQs</li>
+        <li onclick="showFaqCategory('goa')">Goa Tour FAQs</li>
+      </ul>
+    </div>
+    <div class="right-panel" id="faq-questions"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-col footer-brand">
+        <img class="brand-logo" src="images/logo-1.svg" alt="Kashmir Tourism logo" onerror="this.style.display='none'">
+        <img class="lotus" src="images/lotus.png" alt="decorative lotus" onerror="this.style.display='none'">
+      </div>
+      <div class="footer-col footer-newsletter">
+        <h3>Join Our Newsletter</h3>
+        <p>Never miss any deals on anything</p>
+        <form id="newsletterForm" class="newsletter-form" novalidate>
+          <input id="newsletterEmail" type="email" placeholder="Your Email" aria-label="Your Email" required>
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+        <div id="newsletterFeedback" class="feedback" aria-live="polite"></div>
+      </div>
+      <div class="footer-col footer-contact">
+        <h3>Contact</h3>
+        <address>
+          Dar complex gulmarg road <br />
+          main market KUNZER 193404.<br />
+          <br />
+          <strong>Call :</strong> <a href="tel:+917889549694"> 78895 49694</a>
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Kashmir Tourism. All rights reserved.</p>
+    </div>
+    <a class="whatsapp-fab" href="https://wa.me/+917889549694" target="_blank" rel="noopener"
+      aria-label="Chat on WhatsApp">
+      <i class="fa-brands fa-whatsapp" style="font-size:28px; color:white;"></i>
+    </a>
+
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kashmir Itinerary — Sticky Sidebar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Navbar */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1100;
+    }
+
+    .logo img {
+      height: 50px;
+      width: 150px;
+      display: block;
+    }
+
+    .navbar {
+      background: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 10px 20px;
+      position: fixed;
+      height: 80px;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1004;
+    }
+
+    .cta {
+      background: black;
+      color: white;
+      padding: 10px 15px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 24px auto;
+      padding: 0 20px;
+    }
+
+    .container {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .content {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .content h1 {
+      font-size: 26px;
+      margin: 10px 0;
+    }
+
+    .section {
+      margin: 22px 0;
+    }
+
+    .section h2 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+    }
+
+    /* Accordion styles */
+    .accordion {
+      position: relative;
+    }
+
+    .accordion::before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      /* middle of a 20px circle + border */
+      top: 38px;
+      /* center of first circle (header + margin) */
+      width: 0;
+      height: calc(100% - 78px);
+      /* connects circles only, not past the last one */
+      border-left: 2px dotted #0e0d0d;
+      z-index: 0;
+      pointer-events: none;
+      transition: height 0.3s ease;
+    }
+
+
+    .accordion-item.last::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 38px;
+      width: 0;
+      height: 0;
+      /* No line below the last circle */
+      border-left: none;
+      z-index: 2;
+    }
+
+    .accordion-header .circle,
+    .accordion-header .circle-s,
+    .accordion-header .circle-ss,
+    .accordion-header .circle-sss {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-right: 10px;
+      background: #fff;
+      border: 2px solid #d9534f;
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .accordion.hide-line::before {
+      height: calc(100% - 90px);
+    }
+
+    .accordion-item {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    /* Timeline circles */
+    .accordion-header .circle,
+    .accordion-header .circle-s,
+    .accordion-header .circle-ss,
+    .accordion-header .circle-sss {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-right: 10px;
+      background: #fff;
+      border: 2px solid #d9534f;
+      position: relative;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    .accordion-header .circle-s {
+      border-color: #117ddc;
+    }
+
+    .accordion-header .circle-ss {
+      border-color: #159d45;
+    }
+
+    .accordion-header .circle-sss {
+      border-color: #f0ad4e;
+    }
+
+    .accordion-header {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+      justify-content: space-between;
+      background: #fafafa;
+      padding: 10px 8px;
+      border-radius: 6px;
+
+    }
+
+    .accordion-header h1,
+    .accordion-header span {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 6px 0 0;
+      flex: 1;
+    }
+
+    .accordion-header h1 {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+      margin-left: 30px;
+      color: #444;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-left: 25px;
+      /* background: #fff; */
+      /* border-radius: 6px; */
+      margin-top: 2px;
+      /* box-shadow: 0 2px 8px rgba(0,0,0,0.03); */
+      /* border: 1px solid #efefef; */
+    }
+
+    .accordion-item.active .accordion-body {
+      max-height: 300px;
+      padding: 14px;
+      margin-bottom: 4px;
+      display: block;
+      overflow: visible;
+    }
+
+    .pa::marker {
+      font-size: 2.6rem;
+      /* Increase size as needed */
+      color: black;
+      /* Optional: bullet color */
+      line-gap-override: 3rem;
+    }
+
+    .accordion-item.active .accordion-header i {
+      transform: rotate(180deg);
+    }
+
+    .accordion-header i {
+      transition: transform 0.3s;
+    }
+
+    .icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+      margin: 15px 0;
+    }
+
+    .icons .item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .icons .item i {
+      font-size: 18px;
+      color: #db6e3b;
+    }
+
+    .sidebar {
+      flex: 0 0 340px;
+      margin-top: -130px;
+      transition: margin-top 0.8s;
+      position: relative;
+      z-index: 1002;
+    }
+
+    .box {
+      background: #fff;
+      padding: 18px;
+      border-radius: 8px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+      margin-bottom: 18px;
+    }
+
+    .box h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: #222;
+    }
+
+    .box input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #e6e6e6;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .btn,
+    .red-button {
+      width: 100%;
+      padding: 11px;
+      border-radius: 8px;
+      border: 0;
+      background: #db6e3b;
+      color: #fff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .red-button {
+      font-size: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .red-button .arrow {
+      font-weight: bold;
+      transition: transform 0.3s;
+    }
+
+    .red-button:hover .arrow {
+      transform: translateX(5px);
+    }
+
+    .box p {
+      text-align: justify;
+      font-size: 15px;
+      margin: 2px 0;
+      padding: 0px 2px 3px 35px;
+    }
+
+    .why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 12px 0;
+    }
+
+    .why-item i {
+      font-size: 20px;
+      color: #db6e3b;
+      min-width: 24px;
+    }
+
+    .why-item strong {
+      font-size: 15px;
+      color: #222;
+    }
+
+    .site-footer {
+      background: #fff;
+      border-top: 1px solid #e6e6e6;
+      padding: 40px 20px;
+      margin-top: 80px;
+    }
+
+    /* Slider */
+    .hero-slider {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      overflow: hidden;
+      margin-bottom: 18px;
+    }
+
+    .hero-slider .hero {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+
+    .hero-slider .hero.active {
+      opacity: 1;
+      z-index: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .sidebar {
+        flex: 1 1 auto;
+        max-width: 360px;
+      }
+
+      .wrap,
+      .container {
+        padding: 0 7px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .sidebar {
+        position: static !important;
+        margin-top: 0 !important;
+        width: 100%;
+        transition: none;
+      }
+
+      .container {
+        flex-direction: column;
+        gap: 0;
+      }
+    }
+
+    @media (max-width:600px) {
+      .hero-slider {
+        height: 190px;
+      }
+
+      .sidebar,
+      .box {
+        margin: 0 auto;
+        width: 99%;
+      }
+
+      .accordion-header h1 {
+        font-size: 15px;
+      }
+
+      .accordion-header span {
+        font-size: 15px;
+      }
+
+      .accordion-body {
+        margin-left: 10;
+      }
+
+      .section h2 {
+        font-size: 19px;
+      }
+    }
+
+
+    /* Footer */
+    .site-footer {
+      background: #fff;
+      border-top: 1px solid #e6e6e6;
+      padding: 40px 20px;
+      margin-top: 80px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 320px;
+      gap: 135px;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: flex-start;
+    }
+
+    .brand-logo {
+      width: 160px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .lotus {
+      width: 120px;
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .footer-newsletter h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .footer-newsletter p {
+      margin: 0 0 12px;
+      color: #666;
+    }
+
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .newsletter-form input[type="email"] {
+      flex: 1;
+      padding: 12px 20px;
+      border-radius: 6px;
+      border: 1px solid #e0e0e0;
+      font-size: 15px;
+    }
+
+    .newsletter-form .btn {
+      background: #222;
+      color: #fff;
+      border: none;
+      padding: 11px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .footer-contact h3 {
+      margin: 0 0 8px;
+      font-size: 20px;
+    }
+
+    .footer-contact address {
+      font-style: normal;
+      color: #333;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid #eee;
+      max-width: 1200px;
+      margin: 24px auto 0;
+      padding-top: 18px;
+      text-align: left;
+      color: #666;
+    }
+
+    .footer-bottom p {
+      margin: 0;
+    }
+
+    .site-footer {
+      background: #fff;
+      border-top: 1px solid #e6e6e6;
+      padding: 40px 20px;
+      margin-top: 80px;
+    }
+
+    /* Default Desktop Layout */
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 320px;
+      gap: 135px;
+      align-items: start;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Tablet: 2 columns */
+    @media (max-width: 1000px) {
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+
+      .footer-contact {
+        grid-column: span 2;
+        /* contact takes full width on tablet */
+      }
+    }
+
+    /* Mobile: 1 column stacked */
+    @media (max-width: 600px) {
+      .footer-top {
+        padding-bottom: -50px;
+        padding-top: -50px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+        padding-left: 60px;
+      }
+
+      /* Reorder sections */
+      .footer-brand {
+        order: 1;
+        align-items: center;
+      }
+
+      .footer-newsletter {
+        order: 2;
+        align-items: center;
+      }
+
+      .footer-contact {
+        order: 3;
+        align-items: center;
+      }
+
+      .brand-logo {
+        width: 160px;
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .newsletter-form input[type="email"] {
+        width: 100%;
+      }
+
+      .newsletter-form .btn {
+        width: 100%;
+      }
+
+      .footer-contact address {
+        font-size: 15px;
+        line-height: 1.5;
+      }
+    }
+
+    /* Footer Bottom */
+    .footer-bottom {
+      border-top: 1px solid #eee;
+      max-width: 1200px;
+      margin: 24px auto 0;
+      padding-top: 18px;
+      text-align: center;
+      color: #666;
+    }
+
+    .footer-bottom p {
+      margin: 0;
+    }
+
+    /* WhatsApp Floating Button */
+    .whatsapp-fab {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #25D366;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1006;
+    }
+
+    .whatsapp-fab:hover {
+      background: #20b858;
+    }
+
+    /* media query for smaller screens */
+@media (max-width: 600px) {
+  /* make only the logo image smaller (keeps aspect ratio) */
+  .logo img {
+    height: 28px;
+    max-height: 33px;
+    width: auto;
+    display: block;
+  }
+
+  /* adjust CTA spacing for small screens */
+  .cta {
+    margin: 5px 16px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+}
+
+    /* MOBILE FOOTER: center everything, stack newsletter input + button */
+@media (max-width: 768px) {
+  .site-footer {
+    padding: 30px 16px;
+    margin-top: 80px;
+  }
+
+  /* make footer sections stacked and centered */
+  .footer-top {
+    display: flex;
+    grid-template-columns: 1fr; /* single column */
+    gap: 20px;
+    max-width: 94%;
+    margin: 0 auto;
+    justify-items: center;      /* center grid children horizontally */
+    text-align: center;         /* center text inside children */
+    align-items: start;
+  }
+
+  /* center brand/logo */
+  .footer-brand {
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-logo, .lotus {
+    display: block;
+    margin: 0 auto;
+    max-width: 55%;    /* controls visual logo size on mobile */
+    height: auto;
+  }
+
+  /* newsletter: stack input + button and center them */
+  .newsletter-form {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 100%;
+    max-width: 420px;
+  }
+  .newsletter-form input[type="email"] {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px 14px;
+  }
+  .newsletter-form .btn {
+    width: 100%;
+    max-width: 420px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+  }
+
+  /* footer contact: center content */
+  .footer-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+  }
+  .footer-contact address {
+    display: block;
+    text-align: center;
+  }
+
+  /* footer-bottom center */
+  .footer-bottom {
+    text-align: center;
+    padding-top: 14px;
+    margin-top: 18px;
+  }
+
+  /* small helpers: make links and call button easier to tap */
+  .footer-contact a,
+  .footer-newsletter a,
+  .newsletter-form .btn {
+    display: inline-block;
+    min-height: 44px;
+    line-height: 1.2;
+  }
+}
+
+/* Extra small phones: slightly reduce logo and max widths */
+@media (max-width: 420px) {
+  .brand-logo, .lotus { max-width: 48%; }
+  .newsletter-form, .newsletter-form input[type="email"], .newsletter-form .btn { max-width: 360px; }
+}
+  </style>
+</head>
+
+<body>
+  <!-- Navbar, Slider, Main Content as before -->
+  <section class="navbar">
+    <nav>
+      <div class="logo-container">
+        <div class="logo">
+          <a href="index.html">
+            <img src="images/logo-1.svg" alt="Visit Kashmir Logo" />
+          </a>
+        </div>
+      </div>
+      <button class="cta" onclick="openPanel(0)">✨ Plan a trip</button>
+    </nav>
+  </section>
+  <div class="hero-slider">
+    <img src="images/hello1.jpg" alt="Kashmir Banner" class="hero active">
+    <img src="images/hello2.jpg" alt="Kashmir Banner" class="hero">
+    <img src="images/hello4.jpg" alt="Kashmir Banner" class="hero">
+    <img src="images/hello5.jpg" alt="Kashmir Banner" class="hero">
+    <img src="images/hello6.jpg" alt="Kashmir Banner" class="hero">
+  </div>
+  <div class="wrap">
+    <div class="container">
+      <div class="content">
+        <p class="topnote">4 Nights/5 Days</p>
+        <h1>Srinagar to srinagar</h1>
+        <p class="price">Rs 8,999 <span class="old-price">Per person</span></p>
+        <p style="margin-bottom:8px; margin-top:8px; color:#666;">Srinagar → Gulmarg → Pahalgam → Aru Valley → Betaab
+          Valley</p>
+        <div class="icons" aria-hidden="true">
+          <div class="item"><i class="fa-solid fa-taxi"></i><span>Cab Transfer</span></div>
+          <div class="item"><i class="fa-solid fa-plane"></i><span>Flights</span></div>
+          <div class="item"><i class="fa-solid fa-hotel"></i><span>Hotel Stay</span></div>
+          <div class="item"><i class="fa-solid fa-utensils"></i><span>Meals</span></div>
+          <div class="item"><i class="fa-solid fa-binoculars"></i><span>Sightseeing</span></div>
+        </div>
+        <div class="section">
+          <h2>Overview</h2>
+          <p>Our Kashmir Valley Tour is perfect for a short yet memorable holiday in paradise. In just 4 days, you’ll
+            explore Srinagar’s iconic spots, enjoy a day in Gulmarg, and relax amidst Pahalgam’s valleys.</p>
+        </div>
+        <div class="section">
+          <h2>Itinerary</h2>
+          <div class="accordion">
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <div class="circle"></div>
+                <h1>DAY 1: Arrival in Srinagar + Local Sightseeing</h1>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <div class="accordion-body">
+                <p class="pa">Pickup from Srinagar airport and transfer to your hotel. After check-in, begin
+                  sightseeing:</p>
+                <p class="pa">• Overnight stay in Srinagar</p>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <div class="circle-s"></div>
+                <span>DAY 2: Excursion to Gulmarg</span>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <div class="accordion-body">
+                <p class="pa">After breakfast, drive to Gulmarg (approx. 50 km). Enjoy Gondola ride, visit St. Mary’s
+                  Church, and explore meadows. Return to Srinagar.</p>
+                <p class="pa">Overnight stay in Srinagar.</p>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <div class="circle-ss"></div>
+                <span>DAY 3:Srinagar → Pahalgam (Overnight Stay)</span>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <div class="accordion-body">
+                <p class="pa">Drive to Pahalgam (approx. 90 km). Explore Aru Valley, Betaab Valley, and Chandanwari.
+                  Enjoy the Lidder River and pine forests.</p>
+                <p class="pa">- Overnight stay in Pahalgam.</p>
+              </div>
+            </div>
+            <div class="accordion-item last">
+              <div class="accordion-header">
+                <div class="circle-sss"></div>
+                <span>DAY 4: Departure from Pahalgam → Srinagar</span>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <div class="accordion-body">
+                <p class="pa">Check out and return to Srinagar airport for onward journey. Tour ends with memories of
+                  Kashmir.</p>
+              </div>
+            </div>
+                        <div class="accordion-item ">
+              <div class="accordion-header">
+                <div class="circle-sss"></div>
+                <span>DAY 5: Departure from Pahalgam → Srinagar</span>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <div class="accordion-body">
+                <p class="pa">Check out and return to Srinagar airport for onward journey. Tour ends with memories of
+                  Kashmir.</p>
+              </div>
+            </div>
+            <div class="accordion-item last">
+              <div class="accordion-header">
+                <div class="circle-sss"></div>
+                <span>DAY 6: Departure from Pahalgam → Srinagar</span>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <div class="accordion-body">
+                <p class="pa">Check out and return to Srinagar airport for onward journey. Tour ends with memories of
+                  Kashmir.</p>
+              </div>
+            </div>
+                        <div class="accordion-item last">
+              <div class="accordion-header">
+                <div class="circle-sss"></div>
+                <span>DAY 7: Departure from Pahalgam → Srinagar</span>
+                <i class="fa-solid fa-plus"></i>
+              </div>
+              <div class="accordion-body">
+                <p class="pa">Check out and return to Srinagar airport for onward journey. Tour ends with memories of
+                  Kashmir.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="sidebar" aria-label="Enquiry form and details">
+        <div class="sticky-box">
+          <div class="box">
+            <p style="color:#007bff; padding: 1px;">3 Nights/4 Days</p>
+            <h3>Kashmir Itinerary For 4 Days</h3>
+            <p style="padding: 1px;">
+              <strong>Rs. 8,999</strong>
+            </p>
+            <input type="text" id="name" placeholder="Your Name">
+            <input type="tel" id="mobile" placeholder="Mobile Number">
+            <input type="email" id="email" placeholder="Email Id">
+            <input type="text" id="rooms" placeholder="Number Of Rooms">
+            <input type="text" id="location" placeholder="Current Location">
+            <button class="btn" onclick="sendEnquiry()">Send Enquiry</button>
+          </div>
+          <div class="box">
+            <h3>Why Choose us ?</h3>
+            <div class="why-item">
+              <i class="fa-solid fa-user-tie"></i>
+              <div>
+                <strong>Best Travel Experts</strong>
+                <div style="color:#666;font-size:13px">10+ years of experience</div>
+              </div>
+            </div>
+            <p>Our travel experts have core and intense knowledge about Kashmir sector...</p>
+            <div class="why-item">
+              <i class="fa-solid fa-headset"></i>
+              <div>
+                <strong>24x7 Support</strong>
+                <div style="color:#666;font-size:13px">Always available</div>
+              </div>
+            </div>
+            <p>We provide dedicated support throughout your trip...</p>
+            <div class="why-item">
+              <i class="fa-solid fa-indian-rupee-sign"></i>
+              <div>
+                <strong>Best Price Guarantee</strong>
+                <div style="color:#666;font-size:13px">Value for money</div>
+              </div>
+            </div>
+            <p>We ensure competitive pricing for your dream vacation...</p>
+          </div>
+          <button class="red-button">
+            Let's Plan Your Kashmir Tours<span class="arrow">→</span>
+          </button>
+        </div>
+      </aside>
+    </div>
+  </div>
+  <!-- Footer and WhatsApp FAB as before -->
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-col footer-brand">
+        <img class="brand-logo" src="images/logo-1.svg" alt="Kashmir Tourism logo" onerror="this.style.display='none'">
+        <img class="lotus" src="images/lotus.png" alt="decorative lotus" onerror="this.style.display='none'">
+      </div>
+      <div class="footer-col footer-newsletter">
+        <h3>Join Our Newsletter</h3>
+        <p>Never miss any deals on anything</p>
+        <form id="newsletterForm" class="newsletter-form" novalidate>
+          <input id="newsletterEmail" type="email" placeholder="Your Email" aria-label="Your Email" required>
+          <button type="submit" class="btn">Subscribe</button>
+        </form>
+        <div id="newsletterFeedback" class="feedback" aria-live="polite"></div>
+      </div>
+      <div class="footer-col footer-contact">
+        <h3>Contact</h3>
+        <address>
+          Dar complex gulmarg road <br />
+          main market KUNZER 193404.<br />
+          <br />
+          <strong>Call :</strong> <a href="tel:+917889549694"> 78895 49694</a>
+        </address>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span id="year"></span> Kashmir Tourism. All rights reserved.</p>
+    </div>
+    <a class="whatsapp-fab" href="https://wa.me/+917889549694" target="_blank" rel="noopener"
+      aria-label="Chat on WhatsApp">
+      <i class="fa-brands fa-whatsapp" style="font-size:28px; color:white;"></i>
+    </a>
+  </footer>
+  <!-- JavaScript: Open first day by default and enhanced accordion -->
+  <script>
+    // Accordion + open first item default
+    document.addEventListener("DOMContentLoaded", function () {
+      const sidebar = document.querySelector(".sidebar");
+      const accordion = document.querySelector(".accordion");
+      const accItems = document.querySelectorAll(".accordion-item");
+      const headers = document.querySelectorAll(".accordion-header");
+
+      // Open the first item by default
+      accItems[0].classList.add("active");
+      const firstBody = accItems[0].querySelector(".accordion-body");
+      firstBody.style.maxHeight = firstBody.scrollHeight + "px";
+      accItems[0].querySelector("i").classList.replace("fa-plus", "fa-minus");
+
+      headers.forEach(header => {
+        header.addEventListener("click", function () {
+          const parent = header.parentElement;
+          const body = parent.querySelector(".accordion-body");
+          const icon = header.querySelector("i");
+          const isActive = parent.classList.contains("active");
+
+          accItems.forEach(item => {
+            if (item !== parent) {
+              item.classList.remove("active");
+              item.querySelector(".accordion-body").style.maxHeight = null;
+              item.querySelector("i").classList.replace("fa-minus", "fa-plus");
+            }
+          });
+
+          if (isActive) {
+            parent.classList.remove("active");
+            body.style.maxHeight = null;
+            icon.classList.replace("fa-minus", "fa-plus");
+            sidebar.style.marginTop = "-130px";
+            if (parent === parent.parentElement.lastElementChild) {
+              accordion.classList.remove("hide-line");
+            }
+          } else {
+            parent.classList.add("active");
+            body.style.maxHeight = body.scrollHeight + "px";
+            icon.classList.replace("fa-plus", "fa-minus");
+            sidebar.style.marginTop = "20px";
+            if (parent === parent.parentElement.lastElementChild) {
+              accordion.classList.add("hide-line");
+            } else {
+              accordion.classList.remove("hide-line");
+            }
+          }
+        });
+      });
+
+      // Image slider as before
+      const slides = document.querySelectorAll(".hero-slider .hero");
+      let currentSlide = 0;
+      function nextSlide() {
+        slides[currentSlide].classList.remove("active");
+        currentSlide = (currentSlide + 1) % slides.length;
+        slides[currentSlide].classList.add("active");
+      }
+      setInterval(nextSlide, 3000);
+    });
+
+    function sendEnquiry() {
+      let name = document.getElementById("name").value;
+      let mobile = document.getElementById("mobile").value;
+      let email = document.getElementById("email").value;
+      let rooms = document.getElementById("rooms").value;
+      let location = document.getElementById("location").value;
+      let message = `✨ Kashmir Tour Enquiry ✨
+        Name: ${name}
+        Mobile: ${mobile}
+        Email: ${email}
+        Rooms: ${rooms}
+        Location: ${location}`;
+      let encodedMessage = encodeURIComponent(message);
+      let whatsappNumber = "917889549694";
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, "_blank");
+    }
+
+
+    headers.forEach(header => {
+      header.addEventListener("click", function () {
+        const parent = header.parentElement;
+        const body = parent.querySelector(".accordion-body");
+        const icon = header.querySelector("i");
+        const isActive = parent.classList.contains("active");
+
+        accItems.forEach(item => {
+          if (item !== parent) {
+            item.classList.remove("active");
+            item.querySelector(".accordion-body").style.maxHeight = null;
+            item.querySelector("i").classList.replace("fa-minus", "fa-plus");
+          }
+        });
+
+        if (isActive) {
+          parent.classList.remove("active");
+          body.style.maxHeight = null;
+          icon.classList.replace("fa-minus", "fa-plus");
+          // Only apply sliding effect on desktop
+          if (window.innerWidth > 760) {
+            sidebar.style.marginTop = "-130px";
+          } else {
+            sidebar.style.marginTop = "0";
+          }
+          if (parent === parent.parentElement.lastElementChild) {
+            accordion.classList.remove("hide-line");
+          }
+        } else {
+          parent.classList.add("active");
+          body.style.maxHeight = body.scrollHeight + "px";
+          icon.classList.replace("fa-plus", "fa-minus");
+          if (window.innerWidth > 760) {
+            sidebar.style.marginTop = "20px";
+          } else {
+            sidebar.style.marginTop = "0";
+          }
+          if (parent === parent.parentElement.lastElementChild) {
+            accordion.classList.add("hide-line");
+          } else {
+            accordion.classList.remove("hide-line");
+          }
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>
